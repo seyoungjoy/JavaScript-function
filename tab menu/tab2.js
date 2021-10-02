@@ -6,8 +6,7 @@ for (var i=0; i<targetLink.length; i++){
     targetLink[i].addEventListener('click', function(e){
         e.preventDefault();
         const orgTarget = e.target.getAttribute('href');
-        var tabTarget = orgTarget.replace('#','');
-        // console.log(tabTarget);
+        var tabTarget = orgTarget.replace('#','');  
 
         for(var x = 0; x < tabContent.length; x++){
             tabContent[x].style.display='none';
