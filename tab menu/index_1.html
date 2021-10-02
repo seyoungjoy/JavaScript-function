@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab-menu</title>
+    <style>
+        .tab-content > div{
+            display: none;
+        }
+        .tab-menu a.active{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-wrapper">
+        <ul class="tab-menu">
+            <li><a href="#tabs-1" class="active">menu1</a></li>
+            <li><a href="#tabs-2">menu2</a></li>
+            <li><a href="#tabs-3">menu3</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tabs-1">
+                tabs-1 영역입니다.
+            </div>
+            <div id="tabs-2">
+                tabs-2 영역입니다.
+            </div>
+            <div id="tabs-3">
+                tabs-3 영역입니다.
+            </div>
+        </div>
+    </div>
+    <script src="tab.js"></script>
+</body>
+</html>
