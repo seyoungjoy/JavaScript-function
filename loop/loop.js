@@ -46,6 +46,7 @@ fruits.forEach(function(item, index){
 
 // for of
 var item;
+
 for (item of fruits){
     document.getElementById('forof').innerHTML += '<li>'+item+'</li>';
 }
