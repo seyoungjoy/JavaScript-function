@@ -21,4 +21,3 @@ for (var i=0; i<targetLink.length; i++){
 }
 document.getElementById('tabs-1').style.display = 'block';
 
-//target 은 이벤트가 발생한 요소를 반환해준다.

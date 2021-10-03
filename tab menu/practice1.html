@@ -7,7 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #tab-content>div {
+        .tab-content > div{
+            display: none;
+        }
+        .tab-content > div.active{
+            display: block;
+        }
+        .tab-menu > li a.active{
+            color:red;
+        }
+        
+        /* #tab-content>div {
             display: none;
         }
         .tab-menu li a{
@@ -16,12 +26,32 @@
         .tab-menu li a.active{
             background:#000;
             color:#fff;
-        }
+        } */
     </style>
 </head>
 
 <body>
+
     <div class="tab-wrapper">
+        <ul class="tab-menu">
+            <li><a href="#tabs-1" class="active">menu1</a></li>
+            <li><a href="#tabs-2">menu2</a></li>
+            <li><a href="#tabs-3">menu3</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tabs-1" class="active">
+                menu1 내용입니다.
+            </div>
+            <div id="tabs-2">
+                menu2 내용입니다.
+            </div>
+            <div id="tabs-3">
+                menu3 내용입니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="tab-wrapper">
         <ul class="tab-menu">
             <li>
                 <a href="#tabs-1" class="active">menu1</a>			
@@ -44,7 +74,7 @@
                 <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
             </div>
         </div>
-    </div>	
+    </div>	 -->
 
     <script src="tab1.js"></script>
 </body>
