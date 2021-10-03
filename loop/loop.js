@@ -1,9 +1,120 @@
+//for 반복문
+
 var fruits = ["apple", "orange", "cherry"];
-// for 
+
 for(var i = 0; i<fruits.length; i++){
     document.getElementById('for').innerHTML += '<li>'+fruits[i]+'</li>';
 }
 
+/*-----------------------------------------------*/
+
+const arr = [0,1,2,3,4,5,6,7,8,9,10]
+
+for(i=0; i<arr.length; i++){
+    //console.log(arr[i]);
+}
+
+/*-----------------------------------------------*/
+
+//두 개의 주사위를 던졌을 때 두 눈 의 합이 6이 되는 모든 경우의 수 출력하기
+// for (var i = 1; i<=6; i++){
+//     for(var j = 1; j <=6; j++){
+//         if(i + j === 6) console.log(`[${i}, ${j}]`);
+//     }
+// }
+
+/*=======================================================*/
+
+//while
+//주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다.
+// for 문은 반복 횟수가 명확할 때 주로 사용하고 while 문은 반복 횟수가 불명확할 때 주로 사용한다.
+// while문은 조건문의 평가 결과가 거짓이 되면 코드 블록을 종료한다.
+
+var count = 0;
+
+while(count < 3){
+    // console.log(count);
+    count++;
+}
+
+// if 문으로 탈출 조건을 만들고 break 문으로 코드블록을 탈출한다.
+var count = 0;
+
+while(true){
+    // console.log(count);
+    count++;
+    if(count === 3) break;
+}
+
+//do...while문
+var count = 0;
+do{
+    // console.log(count);
+    count++;
+} while(count < 3);
+
+
+var y = 0;
+do{
+    document.getElementById('dowhile').innerHTML += '<li>'+fruits[y]+'</li>';
+    y++;
+
+}
+while(y < fruits.length); //조건 : 이게 참일동안 발동.
+
+
+
+/*=======================================================*/
+//break 문 - 레이블, 반복문, switch 문의 코드 블록 내에서만 사용.
+/*
+if (true){
+    break; //SyntaxError
+}
+*/
+
+//식별자가 붙은 문을 레이블 문이라고 한다.
+// foo: console.log('foo');
+
+// foo:{
+//     console.log(1);
+//     break foo;
+//     console.log(2);
+// }
+
+// console.log('Done!');
+
+// outer: for (var i = 0; i < 3; i++){
+//     for(var j = 0; j < 3; j++){
+//         if(i + j ===3) break outer;
+//         console.log(`inner[${i}, ${j}]`);
+//     }
+// }
+
+// console.log('Done!');
+
+//문자열에서 특정 문자의 인덱스(위치)를 검색하는 예다.
+var string = 'Hello World';
+var search = 'l';
+var index;
+
+for (var i = 0; i < string.length; i++){
+    if (string[i] === search){
+        index = i;
+        break;
+    }
+}
+
+console.log(index);
+
+/*=======================================================*/
+//continue 문
+// 반복문의 코드 블록 실행을 현 지점에서 중단하고
+// 반복문의 증감식으로 실행 흐름을 이동시킨다. break 문처럼 반복문을 탈출하지는 않는다.
+
+
+
+
+/*=======================================================*/
 // forEach
 /*
 for문과 마찬가지로 반복적인 기능을 수행할 때 사용한다.
@@ -12,18 +123,14 @@ callback 함수를 통해 기능을 수행할 수 있다.
 
 */
 
-//기본적인 사용법
-const arr = [0,1,2,3,4,5,6,7,8,9,10]
 
-for(i=0; i<arr.length; i++){
-    //console.log(arr[i]);
-}
+
 
 arr.forEach(function(element){
     //console.log(element);
 });
 //arrow 함수로도 표현 가능.
-arr.forEach(element => console.log(element));
+// arr.forEach(element => console.log(element));
 
 //홀수 배열 만들어보기
 const oddArray = [];
@@ -33,7 +140,7 @@ arr.forEach(function(el){
         oddArray.push(el);
     }
 });
-console.log(oddArray);
+// console.log(oddArray);
 
 
 
@@ -63,11 +170,3 @@ for (x in person){
 
 }
 
-//do / while
-var y = 0;
-do{
-    document.getElementById('dowhile').innerHTML += '<li>'+fruits[y]+'</li>';
-    y++;
-
-}
-while(y < fruits.length); //조건 : 이게 참일동안 발동.
