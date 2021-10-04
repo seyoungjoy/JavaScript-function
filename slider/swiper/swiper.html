@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 300px;
+
+            background: #777;
+        }
+
+        .swiper-slide {
+            border-radius: 50px;
+            background-color: mediumaquamarine;
+        }
+
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 20vh;
+            object-fit: cover;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+
+        .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+        .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+            background-color: red;
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이미지 슬라이더</h1>
+    <div class="slider-wrap">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash1.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 1번입니다.
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash2.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 2번입니다.
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash3.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 3번입니다.
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash4.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 4번입니다.
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash5.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 5번입니다.
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <div class="img-wrap">
+                            <img src="./img/unsplash5.jpg">
+                        </div>
+                        <div class="text-wrap">
+                            이미지 6번입니다.
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            centeredSlides: false,
+            spaceBetween: 20,
+            grabCursor: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+
+</body>
+
+</html>
