@@ -59,5 +59,6 @@ document.body.append(createDiv, 'hello!', createP, createSpan);
 
 
 ### 📌Node.insertBefore()<br>
-이 메서드는 tagname의 html 요소를 만들어 반환한다.
+
+### 📌innerText vs innerHTML
 

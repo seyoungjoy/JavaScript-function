@@ -14,6 +14,28 @@ function addTodo(event){
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
 
+    //Create Li
+    const newTodo = document.createElement('li');
+    newTodo.innerText = 'hey';
+    newTodo.classList.add('todo-item');
+    todoDiv.appendChild(newTodo);
+
+    //Check Mark Button
+    const completeButton = document.createElement('button');
+    completeButton.innerHTML = '<i class="fas fa-check"></i>';
+    completeButton.classList.add('complete-btn');
+    todoDiv.appendChild(completeButton);
+
+    //Check trash button
+    const trashButton = document.createElement('button');
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    trashButton.classList.add("complete-btn");
+    todoDiv.appendChild(trashButton);
+
+    //Append to list
+    todoList.appendChild(todoDiv);
+    
+
 }
 
 /*
