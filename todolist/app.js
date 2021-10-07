@@ -12,12 +12,7 @@ function addTodo(event){
     event.preventDefault(); //버튼 클릭시 기본 설정된 페이지 새로고침을 막아줌.
     //Todo Div
     const todoDiv = document.createElement("div");
-    const newContent = document.createTextNode("환영!");
-
-    todoDiv.appendChild(newContent);
-
-    const currentDiv = document.getElementById("div1");
-    document.body.insertBefore(todoDiv, currentDiv);
+    todoDiv.classList.add("todo");
 
 }
 
