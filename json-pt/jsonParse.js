@@ -23,4 +23,4 @@ const json4 = JSON.stringify(todos);
 
 //JSON 포맷의 문자열을 배열로 변환한다. 배열의 요소까지 객체로 변화된다.
 const parsed2 = JSON.parse(json4);
-console.log(typeof parsed2, parsed2);
+// console.log(typeof parsed2, parsed2);
