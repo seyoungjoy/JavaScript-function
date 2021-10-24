@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+    <article></article>
+    <input type="button" value="fetch" onclick="
+    // fetch('css').then(function(response){ 
+    //     response.text().then(function(text){
+    //         document.querySelector('article').innerHTML = text;
+    //     })
+    // })
+ 
+    // function callbackme(){
+    //     console.log('response end');
+    // }
+    // callbackme = function(){
+    //     console.log('response end');
+    // }
+
+    fetch('javascript').then(function(response){
+        // console.log(response.status); //404
+        if(response.status='404'){
+            alert('파일이 없습니다.');
+        }
+    });
+
+    //fetch는 첫번째 인자로 전달된 데이터를 서버에게 요청한다.
+    //then은 fetch api는 응답이 끝난 후 callbackme함수를 실행시킨다.
+
+
+    // https://www.youtube.com/watch?v=n9OvSZbEi1E&list=PLuHgQVnccGMA9-1PvblBehoGg7Pu1lg6q&index=9
+    ">
+
+</body>
+</html>
