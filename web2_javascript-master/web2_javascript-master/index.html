@@ -12,9 +12,7 @@
     nightDayHandler(this);
   ">
   <ol id="nav">
-    <li><a onclick="fetchPage('html')">HTML</a></li>
-    <li><a onclick="fetchPage('css')">CSS</a></li>
-    <li><a onclick="fetchPage('Javascript')">Javascript</a></li>
+    
   </ol>
 <article></article>
 
@@ -23,7 +21,7 @@
   function fetchPage(name){
       fetch(name).then(function(response){
       response.text().then(function(text){
-        document.querySelector('article').innerHTML =text;
+        document.querySelector('article').innerHTML=text;
       })
     })
   }
@@ -32,7 +30,28 @@
   } else{
     fetchPage('welcome');
   }
+  fetch('list').then(function(response){
+      response.text().then(function(text){
+        console.log(text);
+        var items = text.split(',');
+        var i = 0;
+        var tags = '';
+        while(i<items.length){
+          var item = items[i];
+          item = item.trim();
+          var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">'+item+'</a></li>';
+          console.log(tag);
+          tags = tags + tag;
+          i = i + 1;
+        }
+        console.log(items);
+        document.querySelector('#nav').innerHTML=tags;
+      })
+    });
   
+  //이런 방식으로 하면 검색엔진에 컨텐츠들이 잡히지 않음.
+  // 그래서 요즘은 pjax를 사용함.
+  // 처음 페이지를 로드했을 때 초기 페이지를 로드하는 방법.
 </script>
 
 
