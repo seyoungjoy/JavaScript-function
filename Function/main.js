@@ -55,8 +55,36 @@
 
 // console.log(add(2));
 
-function multiply(x, y){
-    return x +y;
+// function multiply(x, y){
+//     return x +y;
+// }
+
+// var result = u
+
+// function add(x,y){
+//     return x + y;
+// }
+
+// let result = add(2,6);
+
+// console.log(result);
+
+// function add(x,y){
+//     return x+y;
+// }
+
+// result = add(1,2);
+
+// console.log(result);
+
+// var add = function (x,y){
+//     return x+y;
+// }
+
+// console.log(add(1,2));
+
+function add(x,y){
+    return x+y;
 }
 
-var result = u
+console.dir(add);
