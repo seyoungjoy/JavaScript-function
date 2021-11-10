@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width:100%;
+            border:10px solid red;
+            margin: 0 auto;
+        }
+        h1{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="size">window size</h1>
+<script>
+    //resize()
+    //사용자가 브라우저 창이나 프레임을 변경했을 때 호출되는 이벤트
+    //windows.onresize = function(){}
+    //window.addEventListener('resize',function(){...},true);
+
+    // let size = document.getElementById('size');
+
+    // window.onresize = function(event){
+    //     let innerWidth = window.innerWidth;
+    //     size.textContent = innerWidth;
+
+    // }
+
+    let body = document.getElementsByTagName("body")[0];
+
+    window.onresize = function(event){
+        let innerWidth = window.innerWidth;
+        innerWidth <= "1280" ? body.style.borderColor = "blue" : body.style.borderColor = "black";
+    }
+</script>
+</body>
+</html>
