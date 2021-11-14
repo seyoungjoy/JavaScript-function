@@ -41,9 +41,24 @@ you.sayHello();
 
 
 */ 
-function Person(name){
-    this.name = name;
-}
+// function Person(name){
+//   this.name = name;
+// }
+
+// // console.log(Person.prototype);
+// Person.prototype.sayHello = function(){
+//   console.log(`Hi! My name is ${this.name}!`);
+// }
+// // console.log(Person.);
+// const me = new Person('Young');
+// const you = new Person('Lee');
+
+// me.sayHello();
+// you.sayHello();
+
+// function Person(name){
+//     this.name = name;
+// }
 
 //프로토타입 메서드
 
