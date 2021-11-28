@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll event</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            background: linear-gradient(#000, #fff);
+        }
+        .sec1{
+            width:100%;
+            height:100%;
+        }
+        .box-holder{
+            position: relative;
+            width:100vw;
+            height:200vh;
+            display: flex;
+            justify-content: center;
+        }
+        #box{
+            position: sticky;
+            top:50%;
+            transform: translate3d(0,-50%,0);
+            width:500px;
+            height:100px;
+            background: rgb(255,0,255);
+            color:#000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sec1">
+        <div class="box-holder">
+            <div id="box">
+                I'm box !
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    document.addEventListener('scroll', function(){
+        let current = document.documentElement.scrollTop;
+        let colorValue = Math.round(current/4);
+        let box = document.getElementById('box');
+
+        // console.log(current);
+        console.log(colorValue);
+        //스크롤 값을 0~255 값으로 움직이게 만들려면
+        box.style.background = `rgb(255,${colorValue},255)`;
+
+
+    })
+
+</script>
+    
+</body>
+</html>
