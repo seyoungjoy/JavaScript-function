@@ -23,7 +23,7 @@
             justify-content: center;
             align-items: center;
         }
-        #box{
+        .box{
             position: absolute;
             top:0;
             width:500px;
@@ -39,8 +39,8 @@
 <body>
     <div class="sec1">
         <div class="box-holder">
-            <div id="box">
-                I'm box !
+            <div class="box">
+                box
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
 <script>
     
     window.onresize = function(){
-        let box = document.getElementById('box');
+        let box = document.querySelector('.box');
         let boxWidth = box.style.width;
         let innerWidth = window.innerWidth;
         // console.log(innerWidth);
