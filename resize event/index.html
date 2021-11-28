@@ -4,40 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>resize event</title>
     <style>
         body{
-            width:100%;
-            border:10px solid red;
-            margin: 0 auto;
+            margin:0;
+            padding:0;
+            background: #000;
         }
-        h1{
-            text-align:center;
+        .sec1{
+            width:100%;
+            height:100%;
+        }
+        .box-holder{
+            position: relative;
+            width:100vw;
+            height:100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #box{
+            position: absolute;
+            top:0;
+            width:500px;
+            height:100px;
+            background: rgb(255,255,255);
+            color:#000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <h1 id="size">window size</h1>
+    <div class="sec1">
+        <div class="box-holder">
+            <div id="box">
+                I'm box !
+            </div>
+        </div>
+    </div>
+
 <script>
-    //resize()
-    //사용자가 브라우저 창이나 프레임을 변경했을 때 호출되는 이벤트
-    //windows.onresize = function(){}
-    //window.addEventListener('resize',function(){...},true);
-
-    // let size = document.getElementById('size');
-
-    // window.onresize = function(event){
-    //     let innerWidth = window.innerWidth;
-    //     size.textContent = innerWidth;
-
-    // }
-
-    let body = document.getElementsByTagName("body")[0];
-
-    window.onresize = function(event){
+    
+    window.onresize = function(){
+        let box = document.getElementById('box');
+        let boxWidth = box.style.width;
         let innerWidth = window.innerWidth;
-        innerWidth <= "1280" ? body.style.borderColor = "blue" : body.style.borderColor = "black";
+        // console.log(innerWidth);
+
+        if(innerWidth > 1000){
+            box.style.width = "500px";
+            box.style.background = "rgb(255,255,255)";
+        } else{
+            box.style.width = "100px";
+            box.style.background = "rgb(255,0,0)";
+        }
+
+        if(boxWidth > "500"){
+            box.style.bottom = "auto";
+            box.style.top = "0";
+        } else{
+            box.style.top = "auto";
+            box.style.bottom = "0";
+        }
     }
+
 </script>
 </body>
 </html>
