@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll event</title>
     <style>
-body{
-    margin:0;
-    padding:0;
-    background: #000;
-}
-.sec1{
-    width:100%;
-    height:100%;
-}
-.box-holder{
-    position: relative;
-    width:100%;
-    height:3000px;
-    display: flex;
-    justify-content: center;
-}
-.box{
-    position: sticky;
-    top:50%;
-    transform: translate3d(0,-50%,0);
-    width:100px;
-    height:100px;
-    background: rgb(255,0,255);
-    color:#000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+        .sec1 {
+            width: 100%;
+            height: 100%;
+        }
+        .box-holder {
+            position: relative;
+            width: 100%;
+            height: 3000px;
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            position: sticky;
+            top: 50%;
+            transform: translate3d(0, -50%, 0);
+            width: 100px;
+            height: 100px;
+            background: rgb(255, 0, 255);
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
+
 <body>
-<div class="box-wrapper">
-    <div class="box-holder">
-        <div class="box">
-            box
+    <div class="box-wrapper">
+        <div class="box-holder">
+            <div class="box">
+                box
+            </div>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
     // #1
     // document.addEventListener('scroll', function(){
     //     let current = document.documentElement.scrollTop;
@@ -56,32 +58,19 @@ body{
     // })
 
     // #2
-    // let $wrapper = document.querySelector('.box-wrapper');
-    // let $box = document.querySelector('.box');
+    let $wrapper = document.querySelector('.box-wrapper');
+    let $box = document.querySelector('.box');
 
-    // window.addEventListener('scroll',function(){
-    //     let maxScrollY = $wrapper.offsetHeight;
-    //     let currentScrollY = document.documentElement.scrollTop;
-    //     let scrollRate = currentScrollY/maxScrollY;
-    //     console.log(scrollRate*360);
-    //     let color = `rgb(255,${scrollRate*360},255)`;
-    //     // console.log(scrollRate*360);
+    window.addEventListener('scroll',function(){
+        let maxScrollY = $wrapper.offsetHeight;
+        let currentScrollY = document.documentElement.scrollTop;
+        let scrollRate = currentScrollY/maxScrollY;
+        console.log(scrollRate*360);
+        let color = `rgb(255,${scrollRate*360},255)`;
+        // console.log(scrollRate*360);
 
-    //     $box.style.backgroundColor = color;
-    // })
-
-    
-
-    
-    
-
-
-
-
-
-
-
-</script>
-    
+        $box.style.backgroundColor = color;
+    })
+    </script>
 </body>
 </html>
