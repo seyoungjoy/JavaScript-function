@@ -58,11 +58,9 @@
 
             //뷰포트 1000px 이상일 때 width, rgb 변화
             if (innerWidth > 1000) {
-                box.style.width = "500px";
-                box.style.background = "rgb(255,255,255)";
+                box.style.cssText = 'width:500px; background-color:rgb(255,255,255);'
             } else {
-                box.style.width = "100px";
-                box.style.background = "rgb(255,0,0)";
+                box.style.cssText = 'width:100px; background-color:rgb(255,0,0);'
             }
             //박스 width 500px 이상일 때 position 변화
             if (boxWidth > "500") {
