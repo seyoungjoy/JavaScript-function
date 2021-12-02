@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drag'n'Drop</title>
+    <style>
+        #gate {
+            cursor: pointer;
+            margin-bottom: 100px;
+            width: 83px;
+            height: 46px;
+        }
+
+        #ball {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+        }
+        /*img{*/
+        /*    width:200px;*/
+        /*    height:200px;*/
+        /*}*/
+        /*html, body {*/
+        /*    height: 100%;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <p>Drag the ball.</p>
+
+    <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
+
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball" class="ball">
+<!--<ul id="fruits">-->
+<!--    <li id="apple">Apple</li>-->
+<!--    <li id="banana">Banana</li>-->
+<!--    <li id="orange">Orange</li>-->
+<!--</ul>-->
+<!--<div class="container">-->
+<!--    <button class="btn1">Button 1</button>-->
+<!--    <button class="btn2">Button 2</button>-->
+<!--    <button class="btn3">Button 3</button>-->
+<!--</div>-->
+<!--&lt;!&ndash;<button onclick = "handleClick(this)">Click me</button>&ndash;&gt;-->
+<!--<button class="btn1">0</button>-->
+<!--<button class="btn2">0</button>-->
+<!--<button class="btn">0</button>-->
+<!--<input type="checkbox">-->
+<!--<em class ="message">off</em>-->
+<!--<button onclick="sayHi('young')">Click me!</button>-->
+<!--<button>Click me!</button>-->
+<!--<p>클릭하세요. 클릭한 곳의 좌표가 표시됩니다.</p>-->
+<!--<em class="message"></em>-->
+<!--<input type="text">-->
+<!--<input type="checkbox">-->
+<!--<button>Click me!</button>-->
+<!--    <div>-->
+<!--        <img src="https://i.pinimg.com/564x/42/77/ae/4277ae71a295e64b2148519aca4042cd.jpg" class="ball">-->
+<!--    </div>-->
+    <script>
+       //  let ball = document.querySelector('img');
+       //
+       // ball.onmousedown = function(e){
+       //     let shiftX = e.clientX - ball.getBoundingClientRect().left;
+       //     let shiftY = e.clientY - ball.getBoundingClientRect().top;
+       //     ball.style.position = 'absolute';
+       //     ball.style.zIndex = 1000;
+       //     function moveAt(pageX, pageY){
+       //         console.log('shiftX : ' + shiftX);
+       //         console.log('shiftY : ' + shiftY);
+       //         console.log('clientX : ' + e.clientX);
+       //         console.log('clientY : ' + e.clientY);
+       //         console.log('ball.getBoundingClientRect().left : ' + ball.getBoundingClientRect().left);
+       //         console.log('ball.getBoundingClientRect().top : ' + ball.getBoundingClientRect().top);
+       //
+       //         //getBoundingClientRect() : 엘리먼트 크기와 뷰포트에 상대적인 위치 정보 제공.
+       //         //clientX : 이벤트가 발생한 애플리케이션 뷰포트 내에 수평 좌표를 제공.
+       //
+       //         ball.style.left = pageX - shiftX + 'px';
+       //         ball.style.top = pageY - shiftY + 'px';
+       //         // ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
+       //         // ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+       //         // console.log('pageX : ' + pageX);
+       //         // console.log('pageY : ' + pageY);
+       //         // console.log('ball.offsetWidth : ' + ball.offsetWidth);
+       //         // console.log('ball.offsetHeight : ' + ball.offsetHeight);
+       //     }
+       //
+       //     moveAt(e.pageX, e.pageY);
+       //
+       //     function onMouseMove(e){
+       //         moveAt(e.pageX, e.pageY);
+       //     }
+       //
+       //     document.addEventListener('mousemove', onMouseMove);
+       //
+       //     ball.onmouseup = function(){
+       //         document.removeEventListener('mousemove', onMouseMove);
+       //         ball.onmouseup = null;
+       //     }
+       //     //브라우저 자체의 드래그 앤 드롭 api 때문에 정상적으로 작동 안함.
+       //     ball.ondragstart = function(){
+       //         return false;
+       //     }
+       //
+       //     ball.hidden = true;
+       //
+       //     let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
+       //
+       //     ball.hidden = false;
+       //
+       // }
+
+       // //즉시 날아가는 잠재적 드롭 가능한 요소
+       //  let ball = document.querySelector('img');
+       // let currentDroppable = null;
+       //
+       // function onMouseMove(event){
+       //     moveAt(event.pageX, event.pageY);
+       //
+       //     ball.hidden - true;
+       //     let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+       //     ball.hidden = false;
+       //
+       //     if(!elemBelow) return;
+       //
+       //     let droppableBelow = elemBelow.closet('.droppable');
+       //
+       //     if(currentDroppable != droppableBelow){
+       //         if(currentDroppable){
+       //             leaveDroppable(currentDroppable);
+       //         }
+       //         currentDroppable = droppableBelow;
+       //         if(currentDroppable){
+       //             enterDroppable(currentDroppable);
+       //         }
+       //     }
+       // }
+
+    //    let currentDroppable = null;
+    //    let ball = document.querySelector('.img');
+
+    //    ball.onmousedown = function(event){
+    //        let shiftX = event.clientX - ball.getBoundingClientRect().left;
+    //        let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+    //        ball.style.positon = 'absolute';
+    //        ball.style.zIndex = 1000;
+    //        document.body.append(ball);
+
+    //        moveAt(event.pageX, event.pageY);
+
+    //        function moveAt(pageX, pageY){
+    //            ball.style.left = pageX - shiftX + 'px';
+    //            ball.style.top = pageY - shiftY + 'px';
+    //        }
+
+    //        function onMouseMove(event){
+    //            moveAt(event.pageX, event.pageY);
+
+    //            ball.hidden = true;
+    //            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+    //            console.log(elemBelow);
+    //            ball.hidden = false;
+
+    //            let droppableBelow = elemBelow.closest('.droppable');
+    //            if (currentDroppable != droppableBelow) {
+    //                if (currentDroppable) { // null when we were not over a droppable before this event
+    //                    leaveDroppable(currentDroppable);
+    //                }
+    //                currentDroppable = droppableBelow;
+    //                if (currentDroppable) { // null if we're not coming over a droppable now
+    //                    // (maybe just left the droppable)
+    //                    enterDroppable(currentDroppable);
+    //                }
+    //            }
+    //        }
+    //        document.addEventListener('mousemove', onMouseMove);
+
+    //        ball.onmouseup = function(){
+    //            document.removeEventListener('mousemove', onMouseMove);
+    //            ball.onmouseup = null;
+    //        }
+    //    }
+
+    //    function enterDroppable(elem){
+    //        elem.style.background = 'pink';
+    //    }
+    //    function leaveDroppable(elem){
+    //        elem.style.background = '';
+    //    }
+    //    ball.ondragstart = function(){
+    //        return false;
+    //    }
+
+    let currentDroppable = null;
+    let ball = document.querySelector('.ball');
+
+    ball.onmousedown = function(event){
+        let shiftX = event.clientX - ball.getBoundingClientRect().left;
+        let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+        ball.style.position = 'absolute';
+        ball.style.zIndex = 1000;
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY){
+            ball.style.left = pageX - shiftY + 'px';
+            ball.style.top = pageY - shiftY + 'px';
+        }
+
+        function onMouseMove(event){
+            moveAt(event.pageX, event.pageY);
+
+            ball.hidden = true;
+            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            ball.hidden = false;
+            
+            if (!elemBelow) return;
+            
+            let droppableBelow = elemBelow.closest('.droppable');
+            
+            if( currentDroppable != droppableBelow){
+                if(currentDroppable){
+                    leaveDroppable(currentDroppable);
+                }
+                currentDroppable = droppableBelow;
+                if(currentDroppable){
+                    enterDroppable(currentDroppable);
+                }
+            }
+        }
+        document.addEventListener('mousemove', onMouseMove);
+
+        ball.onmouseup = () =>{
+            document.removeEventListener('mousemove', onMouseMove);
+            ball.onmouseup = null;
+        };
+    };
+
+    function enterDroppable(elem){
+        elem.style.background = 'pink';
+    }
+    function leaveDroppable(elem){
+        elem.style.background = '';
+    }
+
+    ball.ondragstart =() => {
+        return false;
+    }
+
+    
+
+
+
+
+
+
+
+
+        // class App{
+        //     constructor(){
+        //         this.$button = document.querySelector('.btn');
+        //         this.count = 0;
+        //
+        //         // this.$button.onclick = this.increase;
+        //         this.$button.onclick = this.increase.bind(this);
+        //     }
+        //
+        //     increase(){
+        //         this.$button.textContent = ++this.count;
+        //     }
+        // }
+        //     new App();
+        // const $button1 = document.querySelector('.btn1');
+        // const $button2 = document.querySelector('.btn2');
+        //
+        // // 이벤트 핸들러 프로퍼티 방식
+        // $button1.onclick = e => {
+        //     //화살표 함수 내부의 this 는 상위 스코프의 this를 가리킨다.
+        //     console.log(this);
+        //     console.log(e.currentTarget);
+        //     console.log(this === e.currentTarget);
+        //     ++this.textContent;
+        //
+        // }
+        // //addEventListener 메서드 방식
+        // $button2.addEventListener('click', e => {
+        //     console.log(this);
+        //     console.log(e.currentTarget);
+        //     console.log(this === e.currentTarget);
+        //     ++this.textContent;
+        // })
+        //
+        //
+        //
+        //
+        // function handleClick(button){
+        //     console.log(button);
+        //     console.log(this);
+        // }
+        // document.querySelector('.container').onclick = ({target}) => {
+        //     if (!target.matches('.container > button')) return;
+        //     target.style.color = 'red';
+        // }
+        //
+        // //. btn2 요소는 이벤트를 전파하지 않으므로 상위 요소에서 이벤트를 캐치할 수없다.
+        // document.querySelector('.btn2').onclick = e => {
+        //     e.stopPropagation();
+        //     e.target.style.color = 'blue';
+        // }
+        // const $fruits = document.getElementById('fruits');
+        // const $banana = document.getElementById('banana');
+        //
+        // $fruits.addEventListener('click', e => {
+        //     console.log(`이벤트 단계 : ${e.eventPhase}`);
+        //     console.log(`이벤트 타깃 : ${e.target}`);
+        //     console.log(`커런트 타깃 : ${e.currentTarget}`);
+        //     console.log(e);
+        //
+        // }, true)
+    // const $checkbox = document.querySelector('input[type=checkbox]');
+    // const $msg = document.querySelector('.message');
+    //
+    // $checkbox.onChange = e => {
+    //     console.log(Object.getPrototypeOf(e) === Event.prototype);
+    //
+    //     $msg.textContent = e.target.checked ? 'on' : 'off';
+    // }
+    // let e = new Event('foo');
+    // console.log(e);
+    // console.log(e.type);
+    // console.log(e instanceof Event);
+    //
+    // e = new FocusEvent('focus');
+    // console.log(e);
+    //
+    // const $input = document.querySelector('input[type=text]');
+    // const $checkbox = document.querySelector('input[type=checkbox]');
+    // const $button = document.querySelector('button')
+    //
+    // window.onload = console.log;
+    //
+    // $checkbox.onchange = console.log;
+    // $input.oninput = console.log;
+    // mousedown
+    // 요소
+    // 위에서
+    // 마우스
+    // 왼쪽
+    // 버튼을
+    // 눌렀을
+    // 때
+    // 발생.mousemove
+    // 마우스를
+    // 움직일
+    // 때
+    // 발생한다.append
+    // 부모
+    // 노드에
+    // 자식
+    // 노드를
+    // 추가하는
+    // 메서드
+    // 객체, DOMstring
+    // 추가
+    // 및
+    // 한번에
+    // 여러개의
+    // 자식
+    // 요소
+    // 설정
+    // 가능
+    //
+    // offsetWidth
+    // margin을
+    // 제외한
+    // padding, border값까지
+    // 계산한
+    // 요소의
+    // 위드값을
+    // 가져온다.pageX, pageY
+    // 문서의
+    // 왼쪽상단을
+    // 기준으로
+    // 마우스
+    // 위치의
+    // x, y
+    // 좌표
+    //
+    // let ball = document.querySelector('.ball');
+    // console.log(ball);
+    // ball.onmousedown = function (event) {
+    //     let shiftX = event.clientX - ball.getBoundingClientRect().left;
+    //     let shiftY = event.clientY - ball.getBoundingClientRect().top;
+    //
+    //     ball.style.position = 'absolute';
+    //     ball.style.zIndex = 1000;
+    //     document.body.append(ball);
+    //
+    //     function moveAt(pageX, pageY) {
+    //
+    //         ball.style.left = pageX - shiftX + 'px';
+    //         ball.style.top = pageY - shiftY + 'px';
+    //     }
+    //
+    //     moveAt(event.pageX, event.pageY);
+    //
+    //     function onMouseMove(event) {
+    //         moveAt(event.pageX, event.pageY);
+    //     }
+    //
+    //     document.addEventListener('mousemove', onMouseMove);
+    //
+    //     ball.onmouseup = function () {
+    //         document.removeEventListener('mousemove', onMouseMove);
+    //         ball.onmouseup = null;
+    //     }
+    //
+    // }
+    // ball.ondragstart = function () {
+    //     return false;
+    // }
+    //
+    // let currentDroppable = null;
+    //
+    // function onMouse(event) {
+    //     moveAt(event.pageX, event.pageY);
+    //
+    //     ball.hidden = true;
+    //     let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+    //     ball.hidden = false;
+    //
+    //     //마우스 이벤트는 윈도우 밖으로 트리거 될 수 없다.
+    //     //clientX clientY 가 윈도우 밖에 있으면, elementFromPoint 는 null을 반환한다.
+    //     if (!elemBelow) return;
+    //
+    //     //잠재적으로 드롭 할 수 있는 요소를 'droppable' 클래스로 지정한다.
+    //     let droppableBelow = elemBelow.closet('.droppable');
+    //
+    //     if (currentDroppable != droppableBelow) {
+    //         //들어오거나 날리거나...
+    //         //참고 : 두 값 모두 null 일 수 있다.
+    //         if (currentDroppable) {
+    //             leaveDroppable(currentDroppable);
+    //         }
+    //         currentDroppable = droppableBelow;
+    //         if (currentDroppable) {
+    //             enterDroppable(currentDroppable);
+    //         }
+    //     }
+    // }
+    //
+    // const $button = document.querySelector('button');
+    //
+    // $button.onclick = () => {
+    //     alert('button click')
+    // };
+    //
+    // function sayHi(name) {
+    //     console.log(`Hi! ${name}.`);
+    // }
+    //
+    // $button.removeEventListener('click', handleClick);
+    // $button.addEventListener('click', handleClick);
+    //
+    //
+    // $button.onclick = function () {
+    //     console.log('button click');
+    // }
+    //
+    // $button.onclick = function () {
+    //     console.log('button click2');
+    // }
+    // $button.addEventListener('click', function () {
+    //     console.log('button click2');
+    // })
+    //
+    // $button.addEventListener('click', function foo() {
+    //     console.log('hi');
+    //     $button.removeEventListener('click', foo);
+    // })
+    //
+    // const $button = document.querySelector('button');
+    // const handleClick = () => console.log('button click');
+    //
+    // $button.onclick = handleClick;
+    // $button.addEventListener('click', function () {
+    //     console.log('button click');
+    //
+    //     $button.removeEventListener('click', arguments.callee);
+    // })
+    // const $msg = document.querySelector('.message');
+    //
+    // // 클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
+    // function showCoords(e) {
+    //     $msg.textContent = `clientX: ${e.clientX}, clientY: ${e.clientY}`;
+    //     //클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달되어 매개변수 e 에 암묵적으로 할당된다.
+    //     //이는 브라우저가
+    // }
+    //
+    // document.onclick = showCoords;
+    // const $msg = document.querySelector('.message');
+    //
+    // //클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
+    //
+    // function showCoords(e){
+    //     $msg.textContent = `clientX: ${e.clientX}, clientY : ${e.clientY}`;
+    // }
+
+    // Event 생성자 함수를 호출하여 foo 이벤트 타입의 event 객체를 생성한다.
+
+    </script>
+</body>
+</html>
