@@ -7,14 +7,14 @@
 let func = (arg1, arg2) => expression
 ```
 <br>
-위의 표현은 아래 함수의 축약 버전이라고 할 수 있다.
+위의 표현은 아래 함수의 축약 버전이라고 할 수 있다.<br>
 ```
 let func = function(arg1, arg2){
     return expression;
 };
 ```
 <br>
-인수가 하나밖에 없다면 인수를 감싸는 괄호를 생략할 수 있다.
+인수가 하나밖에 없다면 인수를 감싸는 괄호를 생략할 수 있다.<br>
 ```
 // let double = function(n){
 //     return n * 2;
