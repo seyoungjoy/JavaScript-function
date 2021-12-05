@@ -16,12 +16,11 @@ let func = function(arg1, arg2){
 <br>
 인수가 하나밖에 없다면 인수를 감싸는 괄호를 생략할 수 있다.<br>
 ```
-// let double = function(n){
-//     return n * 2;
-// }
+let double = function(n){
+     return n * 2;
+}
 
 let double = n => n*2;
-
 alert(double(4)); // 8
 ```
 
