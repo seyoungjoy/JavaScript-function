@@ -1,36 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>drag&snap</title>
     <style>
-        #draggable {
-            width: 200px;
-            height: 20px;
-            text-align: center;
-            background: white;
+        body {
+            display: flex;
         }
 
-        .dropzone {
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 200px;
-            height: 20px;
-            background: blueviolet;
-            margin-bottom: 10px;
-            padding: 10px;
+            height: 200px;
+            background: darkslategray;
+            margin-right: 10px;
+        }
+
+        .ball {
+            cursor: pointer;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .ball1 {
+            background-color: darkseagreen;
+        }
+
+        .ball2 {
+            background-color: greenyellow;
+        }
+
+        .ball3 {
+            background-color: darkgoldenrod;
         }
     </style>
 </head>
 
 <body>
-    <div class="dropzone">
-        <div id="draggable" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
-            This div is draggable
-        </div>
-    </div>
+    <div class="box droppable"></div>
+    <div class="box droppable"></div>
+    <div class="box droppable"></div>
 
+    <div class="ball ball1"></div>
+    <div class="ball ball2"></div>
+    <div class="ball ball3"></div>
+
+<script>
+//모바일 버전(터치도 가능하게);
+
+let dragEl = function () {
+    return function (el) {
+
+        el.addEventListener('mousedown', function (event) {
+            let shiftX = event.clientX - el.getBoundingClientRect().left;
+            let shiftY = event.clientY - el.getBoundingClientRect().top;
+
+            el.style.position = 'absolute';
+            el.style.zIndex = '1000';
+
+            function moveAt(pageX, pageY) {
+                el.style.left = pageX - shiftX + 'px';
+                el.style.top = pageY - shiftY + 'px';
+            }
+
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            function relocation(event) {
+                el.hidden = true;
+                //ball을 숨겼을 때 현재 좌표 기준 가장 가까운 요소 반환
+                let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                el.hidden = false;
+
+                if (!elemBelow) return;
+
+                let droppableBelow = elemBelow.closest('.droppable');
+
+                //droppableBelow가 .droppable 이라면 자식요소로 ball 추가.
+                if (droppableBelow) {
+                    droppableBelow.append(el);
+                    el.style.position = '';
+                    //아니라면 body에 다시 추가.
+                } else {
+                    document.body.append(el);
+                    el.style.position = 'absolute';
+                }
+                //droppableBelow 안에 이미 ball이 있으면 하나는 다시 돌아가야함.
+                if (droppableBelow.children.length >= 2) {
+                    let firstChild = droppableBelow.firstChild;
+                    document.body.append(firstChild);
+                }
+            }
+            document.addEventListener('mousemove', onMouseMove);
+
+            el.addEventListener('mouseup', function (event) {
+                document.removeEventListener('mousemove', onMouseMove);
+                el.onmouseup = null;
+                relocation(event);
+            })
+        })
+
+        el.addEventListener('dragstart', function () {
+            return false;
+        })
+
+    }
+}();
+
+
+dragEl(document.querySelector('.ball1'));
+dragEl(document.querySelector('.ball2'));
+dragEl(document.querySelector('.ball3'));
+
+</script>
 </body>
 
 </html>
