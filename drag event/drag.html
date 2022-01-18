@@ -62,6 +62,7 @@ let dragEl = function () {
             let shiftX = event.clientX - el.getBoundingClientRect().left;
             let shiftY = event.clientY - el.getBoundingClientRect().top;
 
+
             el.style.position = 'absolute';
             el.style.zIndex = '1000';
 
@@ -78,6 +79,7 @@ let dragEl = function () {
                 el.hidden = true;
                 //ball을 숨겼을 때 현재 좌표 기준 가장 가까운 요소 반환
                 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                console.log(elemBelow);
                 el.hidden = false;
 
                 if (!elemBelow) return;
@@ -85,7 +87,7 @@ let dragEl = function () {
                 let droppableBelow = elemBelow.closest('.droppable');
 
                 //droppableBelow가 .droppable 이라면 자식요소로 ball 추가.
-                if (droppableBelow) {
+                if (droppableBelow.tagName != 'DIV') {
                     droppableBelow.append(el);
                     el.style.position = '';
                     //아니라면 body에 다시 추가.
