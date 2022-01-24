@@ -1,31 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .focused {
-            outline: 1px solid red;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>question form 만들기</title>
 </head>
-
 <body>
-    <form id="form">
-        <input type="text" name="surname" value="성">
-        <input type="text" name="name" value="이름">
-    </form>
+<article>
+    <div class="title_cont">
+        <small>Customer Support</small>
+        <h2>문의하기</h2>
+        <p>
+            제품 및 기술 등 궁금하신 사항을 남겨주시면,
+            최대한 신속하게 답변드리겠습니다.
+        </p>
+    </div>
+    <div class="question_cont">
+        <form>
+            <fieldset>
+                <legend>문의하기 폼</legend>
+                <dl class="info-question">
+                    <dt>
+                        <label>문의유형</label>
+                    </dt>
+                    <dd>
+                        <select>
+                            <option>문의유형을 선택하세요.</option>
+                            <option>제품/사업 문의(국내)</option>
+                            <option>제품/사업 문의(해외)</option>
+                            <option>기술/학술 자료 회의</option>
+                        </select>
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>국가/지역</label>
+                    </dt>
+                    <dd>
+                        <select name="region" id="region">
+                            <option>알바니아</option>
+                            <option>아르헨티나</option>
+                            <option>대한민국</option>
+                            <option>오스트리아</option>
+                        </select>
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>회사정보</label>
+                    </dt>
+                    <dd>
+                        <input placeholder="회사명 및 직함을 입력하세요">
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>이메일</label>
+                    </dt>
+                    <dd>
+                        <input placeholder="이메일 정보를 입력하세요.">
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>이름</label>
+                    </dt>
+                    <dd>
+                        <input placeholder="성">
+                        <input placeholder="이름">
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>연락처</label>
+                    </dt>
+                    <dd>
+                        <input placeholder="전화번호를 입력하세요.">
+                    </dd>
+                </dl>
+                <dl class="info-question">
+                    <dt>
+                        <label>문의내용</label>
+                    </dt>
+                    <dd>
+                        <textarea placeholder="문의 내용을 입력해주세요."></textarea>
+                    </dd>
+                </dl>
 
-    <script>
-        let form = document.querySelector('#form');
 
-        form.addEventListener("focusin", () => form.classList.add('focused'));
-  form.addEventListener("focusout", () => form.classList.remove('focused'));
 
-    </script>
+            </fieldset>
+        </form>
+    </div>
+</article>
+
 </body>
-
 </html>

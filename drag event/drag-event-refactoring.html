@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>drag&snap</title>
+    <style>
+        .box-wrap {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .ball-wrap {
+            display: flex;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30vw;
+            height: 30vw;
+            background: darkslategray;
+            margin-right: 10px;
+        }
+
+        .ball {
+            cursor: pointer;
+            width: 28vw;
+            height: 28vw;
+            border-radius: 50%;
+        }
+
+        .ball1 {
+            background-color: darkseagreen;
+        }
+
+        .ball2 {
+            background-color: greenyellow;
+        }
+
+        .ball3 {
+            background-color: darkgoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-wrap">
+        <div class="box droppable"></div>
+        <div class="box droppable"></div>
+        <div class="box droppable"></div>
+    </div>
+
+    <div class="ball-wrap">
+        <div class="ball ball1"></div>
+        <div class="ball ball2"></div>
+        <div class="ball ball3"></div>
+    </div>
+
+    <script>
+
+        //1 터치랑 마우스 나누기
+        //2 start 함수 만들기
+        //
+        // window.touchEventExample = (function () {
+        //
+        // })();
+
+        class TouchEvent {
+            shiftX;
+            shiftY;
+
+            constructor(el) {
+                this.el = el;
+                this.dragAndDrop();
+
+            }
+
+            dragAndDrop() {
+                if (navigator.maxTouchPoints > 0) {
+                    //모바일 버전 -> touchstart
+                    this.el.addEventListener('touchstart', (evt) => {
+                        this.elementDragStart(evt)
+                    });
+                } else {
+                    //pc 버전 -> mousedown
+                    this.el.addEventListener('mousedown', (evt) => {
+                        this.elementDragStart(evt)
+                    });
+                }
+            }
+
+            elementDragStart(evt) {
+                console.log(evt);
+                this.el.style.position = 'absolute';
+                this.el.style.zIndex = '1000';
+
+                if (navigator.maxTouchPoints > 0) {
+                    console.log('touch')
+                    this.shiftX = evt.targetTouches[0].clientX - this.el.getBoundingClientRect().left;
+                    this.shiftY = evt.targetTouches[0].clientY - this.el.getBoundingClientRect().top;
+                } else {
+                    console.log('click')
+                    this.shiftX = evt.clientX - this.el.getBoundingClientRect().left;
+                    this.shiftY = evt.clientY - this.el.getBoundingClientRect().top;
+                }
+
+                if (navigator.maxTouchPoints > 0) {
+                    this.el.addEventListener('touchmove', (evt) => {
+                        this.onTouchMove(evt)
+                    });
+                } else {
+                    this.el.addEventListener('mousemove', (evt) => {
+                        this.onMouseMove(evt)
+                    });
+                }
+                this.removeEvent();
+            }
+
+            onTouchMove(evt) {
+                this.el.style.left = evt.targetTouches[0].pageX - this.shiftX + 'px';
+                this.el.style.top = evt.targetTouches[0].pageY - this.shiftY + 'px';
+                console.log('touchmove')
+            }
+
+            onMouseMove(evt) {
+                this.el.style.left = evt.pageX - this.shiftX + 'px';
+                this.el.style.top = evt.pageY - this.shiftY + 'px';
+                console.log('mousemove')
+            }
+
+            removeEvent() {
+                this.el.addEventListener('touchend', (evt) => {
+                    this.el.removeEventListener('touchmove', (evt) => {
+                        this.onTouchMove(evt);
+                    })
+                    this.relocation();
+                })
+            }
+
+            relocation(evt) {
+                this.el.hidden = true;
+                //ball을 숨겼을 때 현재 좌표 기준 가장 가까운 요소 반환
+                let elemBelow = document.elementFromPoint(evt.targetTouches[0].clientX, evt.targetTouches[0].clientY);
+                this.el.hidden = false;
+
+                if (!elemBelow) return;
+
+                let droppableBelow = elemBelow.closest('.droppable');
+
+                //droppableBelow가 .droppable 이라면 자식요소로 ball 추가.
+                if (droppableBelow) {
+                    droppableBelow.append(this.el);
+                    this.el.style.position = '';
+                    //아니라면 body에 다시 추가.
+                } else {
+                    document.body.append(el);
+                    this.el.style.position = 'absolute';
+                }
+                //droppableBelow 안에 이미 ball이 있으면 하나는 다시 돌아가야함.
+                if (droppableBelow.children.length >= 2) {
+                    let firstChild = droppableBelow.firstChild;
+                    document.body.append(firstChild);
+                }
+            }
+
+        }
+
+        new TouchEvent(document.querySelector('.ball1'));
+        new TouchEvent(document.querySelector('.ball2'));
+        new TouchEvent(document.querySelector('.ball3'));
+
+
+    </script>
+</body>
+
+</html>

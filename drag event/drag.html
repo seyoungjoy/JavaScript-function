@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>drag&snap</title>
     <style>
-        body {
+        .box-wrap{
+            display: flex;
+            margin-bottom:30px;
+        }
+        .ball-wrap{
             display: flex;
         }
 
@@ -16,16 +20,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 200px;
+            width:30vw;
+            height:30vw;
             background: darkslategray;
             margin-right: 10px;
         }
 
         .ball {
             cursor: pointer;
-            width: 150px;
-            height: 150px;
+            width:28vw;
+            height:28vw;
             border-radius: 50%;
         }
 
@@ -40,87 +44,141 @@
         .ball3 {
             background-color: darkgoldenrod;
         }
+
+
     </style>
 </head>
 
 <body>
+<div class="box-wrap">
     <div class="box droppable"></div>
     <div class="box droppable"></div>
     <div class="box droppable"></div>
+</div>
 
+<div class="ball-wrap">
     <div class="ball ball1"></div>
     <div class="ball ball2"></div>
     <div class="ball ball3"></div>
+</div>
 
 <script>
-//모바일 버전(터치도 가능하게);
+    /*
+    에러 1
+    - ball을 body 부분에 놓았을 때 droppableBelow가 null로 뜨면서
+      droppableBelow.children.length분기 처리에서 오류가 생김.
+    */
 
-let dragEl = function () {
-    return function (el) {
+    /*
+    ======== *모바일 터치도 가능하게 만들기* ========
+    1. 모바일에서 터치 이벤트
+     - touchstart : mousedown
+     - touchmove : mousemove
+     - touchend : mouseup
 
-        el.addEventListener('mousedown', function (event) {
-            let shiftX = event.clientX - el.getBoundingClientRect().left;
-            let shiftY = event.clientY - el.getBoundingClientRect().top;
+     -> 정확한 좌표값을 얻을 수 있는 마우스 이벤트와 달리
+        터치 이벤트는 손가락 접촉면이 크기 때문에 접촉 표면의 평균 좌표 값을 얻는다.
+
+     -> 콜솔로 확인해보니 mouseevent에서는 pageX,Y 값이 프로퍼티로 있으나
+        touchevent에서는 pageX,Y 프로퍼티가 기본적으로 없어서 매개변수 값이 null로 뜨면서
+        touchmove가 동작하지 않는 것으로 확인되었다.
 
 
-            el.style.position = 'absolute';
-            el.style.zIndex = '1000';
+    2. 모바일/ 브라우저 확인 방법
+     - modernizr-detectizr.js 라이브러리 이용
 
-            function moveAt(pageX, pageY) {
-                el.style.left = pageX - shiftX + 'px';
-                el.style.top = pageY - shiftY + 'px';
-            }
+     - Navigator 객체의 속성으로 브라우저 정보를 확인할 수 있음.
+       - appName : 브라우저 이름
+       - appCodeName : 브라우저의 코드명
+       - platform : 브라우저가 설치된 시스템 환경
+       - userAgent : 웹 브라우저의 종류와 버전
+       - appVersion : 웹 브라우저의 버전
 
-            function onMouseMove(event) {
-                moveAt(event.pageX, event.pageY);
-            }
+      - userAgent를 이용해 모바일/pc 구별 가능
+      function isMobile(){
+        let user = navigator.userAgent.toLowerCase();
+        let is_mobile = false;
 
-            function relocation(event) {
-                el.hidden = true;
-                //ball을 숨겼을 때 현재 좌표 기준 가장 가까운 요소 반환
-                let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-                console.log(elemBelow);
-                el.hidden = false;
-
-                if (!elemBelow) return;
-
-                let droppableBelow = elemBelow.closest('.droppable');
-
-                //droppableBelow가 .droppable 이라면 자식요소로 ball 추가.
-                if (droppableBelow.tagName != 'DIV') {
-                    droppableBelow.append(el);
-                    el.style.position = '';
-                    //아니라면 body에 다시 추가.
-                } else {
-                    document.body.append(el);
-                    el.style.position = 'absolute';
-                }
-                //droppableBelow 안에 이미 ball이 있으면 하나는 다시 돌아가야함.
-                if (droppableBelow.children.length >= 2) {
-                    let firstChild = droppableBelow.firstChild;
-                    document.body.append(firstChild);
-                }
-            }
-            document.addEventListener('mousemove', onMouseMove);
-
-            el.addEventListener('mouseup', function (event) {
-                document.removeEventListener('mousemove', onMouseMove);
-                el.onmouseup = null;
-                relocation(event);
-            })
-        })
-
-        el.addEventListener('dragstart', function () {
-            return false;
-        })
-
+        if(user.indexOf("iphone") !== -1 || user.indexOf("android") !== -1){
+            is_mobile = true;
+        }
+        return is_mobile;
     }
-}();
 
 
-dragEl(document.querySelector('.ball1'));
-dragEl(document.querySelector('.ball2'));
-dragEl(document.querySelector('.ball3'));
+    좀더 공부해야할 개념
+    - new
+    - bind
+    - this
+    - addeventlistner!!!!!!!!!!!
+    - 뭔가를 만들때 로직을 짜기!!!
+    - 외울때까지 계속 쳐보기
+   */
+
+    let dragEl = function () {
+        return function (el) {
+
+            el.addEventListener('mousedown', function (event) {
+                let shiftX = event.clientX - el.getBoundingClientRect().left;
+                let shiftY = event.clientY - el.getBoundingClientRect().top;
+
+                el.style.position = 'absolute';
+                el.style.zIndex = '1000';
+
+                function moveAt(pageX, pageY) {
+                    el.style.left = pageX - shiftX + 'px';
+                    el.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                    console.log(event.target);
+                }
+
+                function relocation(event) {
+                    el.hidden = true;
+                    //ball을 숨겼을 때 현재 좌표 기준 가장 가까운 요소 반환
+                    let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                    el.hidden = false;
+
+                    if (!elemBelow) return;
+
+                    let droppableBelow = elemBelow.closest('.droppable');
+
+                    //droppableBelow가 .droppable 이라면 자식요소로 ball 추가.
+                    if (droppableBelow) {
+                        droppableBelow.append(el);
+                        el.style.position = '';
+                        //아니라면 body에 다시 추가.
+                    } else {
+                        document.body.append(el);
+                        el.style.position = 'absolute';
+                    }
+                    //droppableBelow 안에 이미 ball이 있으면 하나는 다시 돌아가야함.
+                    if (droppableBelow.children.length >= 2) {
+                        let firstChild = droppableBelow.firstChild;
+                        document.body.append(firstChild);
+                    }
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+
+                el.addEventListener('mouseup', function (event) {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    el.onmouseup = null;
+                    relocation(event);
+                })
+            })
+            el.addEventListener('dragstart', function () {
+                return false;
+            })
+        }
+    }();
+
+
+    dragEl(document.querySelector('.ball1'));
+    dragEl(document.querySelector('.ball2'));
+    dragEl(document.querySelector('.ball3'));
 
 </script>
 </body>

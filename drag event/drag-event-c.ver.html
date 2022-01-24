@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>drag</title>
+    <link href="reset.css" rel="stylesheet">
+    <style>
+
+        article{
+            display: flex;
+        }
+        h1{
+            margin-bottom:1rem;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .desc{
+            font-size:2rem;
+            margin-bottom:2rem;
+        }
+        .sub-desc{
+            font-size: 1.5rem;
+            margin:1rem;
+        }
+
+        .bg {
+            width: 30rem;
+            height: 500px;
+            background-image: url("bear.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .item-wrap{
+            display: flex;
+            flex-direction: column;
+            justify-content:space-between;
+            width:50%;
+        }
+        .item-wrap > div{
+            height:225px;
+            margin:10px;
+        }
+
+        .eye>img,
+        .mouse>img {
+            cursor: pointer;
+            transform: scale(1);
+            opacity: 1;
+            transition: transform .3s, opacity .3s;
+        }
+
+        img.down {
+            transform: scale(1.2);
+        }
+
+        img.move {
+            opacity: 0.8;
+        }
+
+        .eye-wrap {
+            background: #fff;
+            border:5px dotted #000;
+        }
+
+        .mouse-wrap {
+            background: #fff;
+            border:5px dotted #000;
+        }
+
+        .eye {
+            width: 200px;
+            height: auto;
+
+        }
+
+        .mouse {
+            width: 200px;
+            height: auto;
+        }
+
+        @media (max-width: 500px) {
+            .bg {
+                width: 100%;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Let's make your teddy bear!</h1>
+    <p class="desc">Please complete your teddy bear!</p>
+
+    <article>
+        <div class="bg-wrap">
+            <div class="bg"></div>
+        </div>
+
+        <div class="item-wrap">
+            <div class="eye-wrap">
+                <p class="sub-desc">Select eye!</p>
+                <img src="eye-icon-1.png" class="eye eye-1">
+                <img src="eye-icon-1.png" class="eye eye-2">
+            </div>
+            <div class="mouse-wrap">
+                <p class="sub-desc">Select mouse!</p>
+                <img src="mouse-icon-1.png" class="mouse mouse-1">
+                <img src="mouse-icon-1.png" class="mouse mouse-2">
+            </div>
+        </div>
+    </article>
+
+    <script>
+        class ItemDragHandler {
+            //전역변수로 설정.
+            el;
+            downHandler;
+            moveHandler;
+            upHandler;
+            shiftX;
+            shiftY;
+            constructor(el) {
+                this.el = el;
+                this.addEvent();
+                this.isMobile();
+            }
+
+            isMobile() {
+                if (/Mobi|Android/i.test(navigator.userAgent)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            addEvent() {
+                this.downHandler = (e) => { this.onDownHandler(e); }
+                this.moveHandler = (e) => { this.onMoveHandler(e); }
+                this.upHandler = (e) => { this.onUpHandler(e); }
+
+                if (this.isMobile()) {
+                    this.el.addEventListener('touchstart', this.downHandler);
+                } else {
+                    this.el.addEventListener('mousedown', this.downHandler);
+                }
+            }
+
+            debugEl(el) {
+                return el.classList;
+            }
+
+            onDownHandler(e) {
+                e.preventDefault();
+                console.log(this.debugEl(this.el) + ' : down');
+
+                this.el.classList.add('down');
+
+
+                if (this.isMobile()) {
+                    console.log('touchmove');
+                    document.addEventListener('touchmove', this.moveHandler);
+                    document.addEventListener('touchend', this.upHandler);
+
+                    this.shiftX = e.targetTouches[0].clientX - this.el.getBoundingClientRect().left;
+                    this.shiftY = e.targetTouches[0].clientY - this.el.getBoundingClientRect().top;
+
+                } else {
+                    console.log('clickmove')
+                    document.addEventListener('mousemove', this.moveHandler);
+                    document.addEventListener('mouseup', this.upHandler);
+
+                    this.shiftX = e.clientX - this.el.getBoundingClientRect().left;
+                    this.shiftY = e.clientY - this.el.getBoundingClientRect().top;
+                }
+            }
+
+            onMoveHandler(e) {
+                console.log(this.debugEl(this.el) + ' : move');
+
+                this.el.style.position = 'absolute';
+                this.el.style.zIndex = '1000';
+                this.el.classList.add('move');
+
+
+                if (this.isMobile()) {
+                    this.el.style.left = e.targetTouches[0].pageX - this.shiftX + 'px';
+                    this.el.style.top = e.targetTouches[0].pageY - this.shiftY + 'px';
+                } else {
+                    this.el.style.left = e.pageX - this.shiftX + 'px';
+                    this.el.style.top = e.pageY - this.shiftY + 'px';
+                }
+            }
+
+            onUpHandler() {
+                console.log(this.debugEl(this.el) + ' : up');
+                this.el.classList.remove('down');
+                this.el.classList.remove('move');
+
+                if (this.isMobile()) {
+                    document.removeEventListener('touchmove', this.moveHandler);
+                    document.removeEventListener('touchend', this.upHandler);
+
+                } else {
+                    document.removeEventListener('mousemove', this.moveHandler);
+                    document.removeEventListener('mouseup', this.upHandler);
+                }
+            }
+
+        }
+
+        let eye1El = document.querySelector('.eye-1');
+        let eye2El = document.querySelector('.eye-2');
+        let mouse1El = document.querySelector('.mouse-1');
+        let mouse2El = document.querySelector('.mouse-2');
+
+        new ItemDragHandler(eye1El);
+        new ItemDragHandler(eye2El);
+        new ItemDragHandler(mouse1El);
+        new ItemDragHandler(mouse2El);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

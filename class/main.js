@@ -286,3 +286,45 @@ const person = {
 // //인스턴스 생성
 // var me = new Person('Lee');
 // me.sayHello();
+
+// class User {
+
+//     constructor(name){
+//         this.name = name;
+//         console.log(this);
+//         //this 가 User 생성자 객체이기 때문에
+//         //인수 존ㅇ User.name = 에 할당되는건ㅅ.
+//     }
+
+//     sayHi(){
+//         alert(this.name);
+//     }
+
+// }
+
+// let user = new User("Jogn");
+// user.sayHi();
+
+// class User{
+//     constructor(name){
+//         this.name = name;
+//     }
+// }
+
+// class User{
+//     constructor(name){
+//         this.name = name;
+//     }
+//     sayHi(){
+//         console.log(this.name);
+//     }
+// }
+
+//생성자 함수를 만든다.
+function User(name){
+    this.name = name;
+}
+
+User.prototype.sayHi = function(){
+    console.log(this.name);
+}
