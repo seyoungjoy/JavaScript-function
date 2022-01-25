@@ -19,20 +19,29 @@
             font-weight: bold;
         }
         .desc{
-            font-size:2rem;
+            font-size:1rem;
             margin-bottom:2rem;
         }
         .sub-desc{
             font-size: 1.5rem;
             margin:1rem;
         }
-
+        .bg-wrap{
+            display: flex;
+            flex-wrap: wrap;
+            width:600px;
+            height:580px;
+        }
         .bg {
-            width: 30rem;
-            height: 500px;
-            background-image: url("bear.jpg");
-            background-repeat: no-repeat;
-            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 180px;
+            height:180px;
+            margin-right:5px;
+            margin-left:5px;
+            margin-top:5px;
+            background-color: red;
         }
         .item-wrap{
             display: flex;
@@ -45,71 +54,69 @@
             margin:10px;
         }
 
-        .eye>img,
-        .mouse>img {
+        img{
             cursor: pointer;
             transform: scale(1);
             opacity: 1;
-            transition: transform .3s, opacity .3s;
+            transition: transform .5s;
         }
 
         img.down {
             transform: scale(1.2);
+            
         }
 
         img.move {
             opacity: 0.8;
+            
         }
 
-        .eye-wrap {
-            background: #fff;
-            border:5px dotted #000;
+        .pz-wrap{
+            width:600px;
+            height:580px;
         }
-
-        .mouse-wrap {
-            background: #fff;
-            border:5px dotted #000;
-        }
-
         .eye {
-            width: 200px;
-            height: auto;
+            width: 180px;
+            height: 180px;
 
         }
 
-        .mouse {
-            width: 200px;
-            height: auto;
-        }
 
-        @media (max-width: 500px) {
-            .bg {
-                width: 100%;
-                height: 500px;
-            }
+        @media (max-width: 1200px) {
+
+
         }
     </style>
 </head>
 
 <body>
-    <h1>Let's make your teddy bear!</h1>
-    <p class="desc">Please complete your teddy bear!</p>
+    <h1>Puzzle JS</h1>
+    <p class="desc"><button>Start</button>Please solve the puzzle!</p>
 
     <article>
         <div class="bg-wrap">
-            <div class="bg"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
+            <div class="bg droppable"></div>
         </div>
 
         <div class="item-wrap">
-            <div class="eye-wrap">
-                <p class="sub-desc">Select eye!</p>
-                <img src="eye-icon-1.png" class="eye eye-1">
-                <img src="eye-icon-1.png" class="eye eye-2">
-            </div>
-            <div class="mouse-wrap">
-                <p class="sub-desc">Select mouse!</p>
-                <img src="mouse-icon-1.png" class="mouse mouse-1">
-                <img src="mouse-icon-1.png" class="mouse mouse-2">
+            <div class="pz-wrap">
+                <img src="pz.jpg" class="eye pz-1">
+                <img src="pz.jpg" class="eye pz-2">
+                <img src="pz.jpg" class="eye pz-3">
+                <img src="pz.jpg" class="eye pz-4">
+                <img src="pz.jpg" class="eye pz-5">
+                <img src="pz.jpg" class="eye pz-6">
+                <img src="pz.jpg" class="eye pz-7">
+                <img src="pz.jpg" class="eye pz-8">
+                <img src="pz.jpg" class="eye pz-9">
             </div>
         </div>
     </article>
@@ -195,7 +202,7 @@
                 }
             }
 
-            onUpHandler() {
+            onUpHandler(e) {
                 console.log(this.debugEl(this.el) + ' : up');
                 this.el.classList.remove('down');
                 this.el.classList.remove('move');
@@ -208,19 +215,63 @@
                     document.removeEventListener('mousemove', this.moveHandler);
                     document.removeEventListener('mouseup', this.upHandler);
                 }
+
+                this.onLocation(e);
+                // this.onComplete();
             }
+
+            onLocation(e){
+                let puzzleCont = document.querySelector('.pz-wrap');
+                console.log('locatio');
+                this.el.hidden = true;
+                let elemBelow = document.elementFromPoint(e.clientX, e.clientY);
+                // console.log(elemBelow);
+                this.el.hidden = false;
+
+                if(!elemBelow) return;
+
+                let droppableBelow = elemBelow.closest('.droppable')
+                
+                if(droppableBelow){
+                    droppableBelow.append(this.el);
+                    this.el.style.position = '';
+                } else{
+                    puzzleCont.append(this.el);
+                }
+
+                if(droppableBelow.children.length >=2){
+                    let firstChild = droppableBelow.firstChild;
+                    puzzleCont.append(firstChild);
+                }
+            }
+            // onComplete(){
+            //     let bgCont = document.querySelector('.bg-wrap');
+            //     console.log(bgCont.children.length);
+
+            // }
 
         }
 
-        let eye1El = document.querySelector('.eye-1');
-        let eye2El = document.querySelector('.eye-2');
-        let mouse1El = document.querySelector('.mouse-1');
-        let mouse2El = document.querySelector('.mouse-2');
-
+        let eye1El = document.querySelector('.pz-1');
+        let eye2El = document.querySelector('.pz-2');
+        let eye3El = document.querySelector('.pz-3');
+        let eye4El = document.querySelector('.pz-4');
+        let eye5El = document.querySelector('.pz-5');
+        let eye6El = document.querySelector('.pz-6');
+        let eye8El = document.querySelector('.pz-7');
+        let eye7El = document.querySelector('.pz-8');
+        let eye9El = document.querySelector('.pz-9');
+       
         new ItemDragHandler(eye1El);
         new ItemDragHandler(eye2El);
-        new ItemDragHandler(mouse1El);
-        new ItemDragHandler(mouse2El);
+        new ItemDragHandler(eye3El);
+        new ItemDragHandler(eye4El);
+        new ItemDragHandler(eye5El);
+        new ItemDragHandler(eye6El);
+        new ItemDragHandler(eye7El);
+        new ItemDragHandler(eye8El);
+        new ItemDragHandler(eye9El);
+  
 
 
 
